@@ -6,7 +6,7 @@
   <taskdef name="jamaicabuilder" classname="com.aicas.jamaica.tools.ant.JamaicaTask" classpath="/usr/local/jamaica/lib/JamaicaTools.jar"/>
   
   
-  <target name="build_com.jamaica.demo.FirstApp" unless="jamaica.executable_of_build_com.jamaica.demo.FirstApp_available">
+  <target name="build_com.jamaica.demo.FirstApp" >
     <jamaicabuilder jamaica="/usr/local/jamaica">
       <target value="linux-x86_64" enabled="true"/>
       <main value="com.jamaica.demo.FirstApp" enabled="true"/>
