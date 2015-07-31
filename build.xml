@@ -3,27 +3,38 @@
   <!-- aicas GmbH, Karlsruhe -->
   <!-- Jamaica Buildfile for application 'com.jamaica.demo.FirstApp' -->
   <!-- ANT_EDITOR_VERSION=1.2.1.201409041500 -->
-  <taskdef name="jamaicabuilder" classname="com.aicas.jamaica.tools.ant.JamaicaTask" classpath="/usr/local/jamaica/lib/JamaicaTools.jar"/>
-  
-  
-  <target name="build_com.jamaica.demo.FirstApp" >
+  <property name="javac.classpath" value="classes"/>
+        <property name="javac.bootclasspath" value="${jamaica}/target/${target.platform}/lib/rt.jar"/>
+
+        <taskdef name="jamaicabuilder" classname="com.aicas.jamaica.tools.ant.JamaicaTask" classpath="/usr/local/jamaica/lib/JamaicaTools.jar"/>
+
+
+
+        <!-- compile java-files to class-files -->
+          <target name="classes">
+            <mkdir dir="${javac.classpath}"/>
+            <javac bootclasspath="${javac.bootclasspath}" classpath="${javac.classpath}" destdir="${javac.classpath}" srcdir="src"/>
+          </target>
+
+  <target name="build_com.jamaica.demo.FirstApp" depends="classes" unless="jamaica.executable_of_build_com.jamaica.demo.FirstApp_available">
     <jamaicabuilder jamaica="/usr/local/jamaica">
       <target value="linux-x86_64" enabled="true"/>
       <main value="com.jamaica.demo.FirstApp" enabled="true"/>
       <tmpdir value="tmp" enabled="true"/>
-      <classpath value="bin" enabled="true"/>
+      <classpath value="classes" enabled="true"/>
     </jamaicabuilder>
     <echo>
       The executable has been created successfully:
-        /root/SiriusXM/JamaicaExp1/FirstApp
+        /root/SiriusXM/codebase/SiriusXM/FirstApp
       You can launch it using the &quot;Overview&quot; page in this editor.
     </echo>
   </target>
-  
+
   <target name="launch_com.jamaica.demo.FirstApp">
     <available property="jamaica.executable_of_build_com.jamaica.demo.FirstApp_available" file="FirstApp"/>
     <antcall target="build_com.jamaica.demo.FirstApp"/>
     <exec executable="FirstApp" resolveexecutable="true"/>
   </target>
+
   
 </project>
